@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title>优客书城数据页</title>
+	</head>
+
+	<body>
+        <!--这个页面是对index页面上方第一行图书列表的修改，即书城数据页-->
+		<div class="row">
+			<div class="container"> <!--定义一个容器，css中限制了宽度，效果是让下方的上一页/下一页位置固定了-->
+				<!--book是迭代的对象，bookList是后台model里的列表数据，注意bookList要对应，不能写错，否则渲染失败-->
+				<div class="col-sm-6 col-md-3" th:each="book:${bookList}">
+					<div class="thumbnail">
+						<a href="details.html">
+							<img src="images/beiwei78.jpg" th:src="@{'/public/' + ${book.imgUrl}}" alt="通用的占位符缩略图">
+						</a>
+						<div class="caption">
+							<h3 th:classappend="h3-height" th:text="${book.name}">
+								北纬78°
+							</h3>
+							<p th:classappend="p-height">
+								价格:<span th:text="${book.newPrice}">19.5</span>元&nbsp;&nbsp;
+								作者:<span th:text="${book.author}">陈丹燕</span>&nbsp;&nbsp;
+							</p>
+							<p>
+								<a href="details.html">
+									更多信息
+								</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--分页-->
+			<div class="container">
+				<ul class="pager">
+					<!--设置当前页若是第一页或最后一页则不能点击-->
+					<li th:classappend="${cur == 1} ? 'disabled' : ''"> <!--若不符合条件就将按钮变灰-->
+						<a th:style="${cur == 1} ? 'pointer-events:none' : ''" href="javascript:void(0)" th:onclick="|loadData(${pre},${category})|">
+							&larr;上一页
+						</a>
+					</li>
+					<li th:classappend="${cur == last} ? 'disabled' : ''"> <!--若不符合条件就将按钮变灰-->
+						<a th:style="${cur == last} ? 'pointer-events:none' : ''" href="javascript:void(0)" th:onclick="|loadData(${next},${category})|">
+							下一页 &rarr;
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+
+</html>
