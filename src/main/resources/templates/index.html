@@ -37,15 +37,15 @@
 									</a>
 									<ul class="dropdown-menu">
 										<li>
-											<a href="books_list.html">精选图书</a>
+											<a href="books_list.html" th:href="@{/book/bookList(category=1)}">精选图书</a>
 										</li>
 										<li class="divider"></li>
 										<li>
-											<a href="books_list.html">推荐图书</a>
+											<a href="books_list.html" th:href="@{/book/bookList(category=2)}">推荐图书</a>
 										</li>
 										<li class="divider"></li>
 										<li>
-											<a href="books_list.html">特价图书</a>
+											<a href="books_list.html" th:href="@{/book/bookList(category=3)}">特价图书</a>
 										</li>
 										<li class="divider"></li>
 									</ul>
@@ -338,7 +338,7 @@
 		<script src="js/wow.js" th:src="@{/js/wow.js}"></script>
 		<script th:inline="javascript">
 			// 获取应用路径
-			var contextPath = [[${#request.getContextPath}]];
+			var contextPath = [[${#request.getContextPath()}]];
 		</script>
 		<script type="text/javascript">
 			if(!(/msie [6|7|8|9]/i.test(navigator.userAgent))) {
@@ -347,9 +347,9 @@
 
 			/*写一个函数，当页面加载完成就执行*/
 			$(function () {
-				$("#selected").load(contextPath + "/home/getBookData",buildQuery(1,1)); // 不将项目名称写死 // 默认页是1
-				$("#recommend").load(contextPath + "/home/getBookData",buildQuery(1,2));
-				$("#bargain").load(contextPath + "/home/getBookData",buildQuery(1,3));
+				$("#selected").load(contextPath + "/book/getBookData",buildQuery(1,1)); // 不将项目名称写死 // 默认页是1
+				$("#recommend").load(contextPath + "/book/getBookData",buildQuery(1,2));
+				$("#bargain").load(contextPath + "/book/getBookData",buildQuery(1,3));
 			})
 
 			// 加载其他页数据
@@ -368,7 +368,7 @@
 						break;
 				}
 
-				$("#" + node).load(contextPath + "/home/getBookData",buildQuery(page,category));
+				$("#" + node).load(contextPath + "/book/getBookData",buildQuery(page,category));
 			}
 
 			// 包装查询参数
@@ -434,7 +434,7 @@
 						$("#pwdTip").css("display","none");
 						if (data == 100){ // 登录成功，模态窗关闭
 							$("#loginModal").modal('hide');
-							Window.location.href = contextPath + "/home/index"; // 登录成功则跳转到首页
+							Window.location.href = contextPath + "/book/index"; // 登录成功则跳转到首页
 						}else if (data == 101){ // 用户不存在
 							$("#userTip").css("display","block"); // 让它显示出来
 						}else { // 密码输入错误

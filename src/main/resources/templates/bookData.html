@@ -13,7 +13,7 @@
 				<!--book是迭代的对象，bookList是后台model里的列表数据，注意bookList要对应，不能写错，否则渲染失败-->
 				<div class="col-sm-6 col-md-3" th:each="book:${bookList}">
 					<div class="thumbnail">
-						<a href="details.html">
+						<a href="details.html" th:href="@{/book/detail(id=${book.id})}">
 							<img src="images/beiwei78.jpg" th:src="@{'/public/' + ${book.imgUrl}}" alt="通用的占位符缩略图">
 						</a>
 						<div class="caption">
@@ -25,7 +25,7 @@
 								作者:<span th:text="${book.author}">陈丹燕</span>&nbsp;&nbsp;
 							</p>
 							<p>
-								<a href="details.html">
+								<a href="details.html" th:href="@{/book/detail(id=${book.id})}">
 									更多信息
 								</a>
 							</p>

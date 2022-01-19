@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/book")
 public class BookController {
 
     @Autowired
@@ -51,4 +51,65 @@ public class BookController {
         return "bookData";
     }
 
+    /**
+     * 图书列表页
+     */
+    @RequestMapping("/bookList")
+    public String bookList(String category, Model model) {
+        model.addAttribute("category", category);
+
+        return "books_list";
+    }
+
+    /**
+     * 获取图书列表内容
+     */
+    @RequestMapping("/getBookListData")
+    public String getBookListData(String category, Integer page, Integer pageSize, Model model) {
+        IPage<Book> ipage = bookService.page(new Page<>(page, pageSize),
+                new QueryWrapper<Book>().eq("category", category));
+        model.addAttribute("bookList", ipage.getRecords());
+
+        model.addAttribute("pre", ipage.getCurrent() - 1); // 上一页
+        model.addAttribute("next", ipage.getCurrent() + 1); // 下一页
+        model.addAttribute("cur", ipage.getCurrent()); // 当前页的值
+        model.addAttribute("pages", ipage.getPages()); // 总页数
+
+        model.addAttribute("category", category);
+
+        model.addAttribute("pageSize", pageSize);
+
+        return "booksListData";
+    }
+
+    /**
+     * 图书详情
+     */
+    @RequestMapping("/detail")
+    public String detail(Integer id,Model model){
+        Book book = bookService.getById(id);
+        model.addAttribute("book", book);
+        return "details";
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
