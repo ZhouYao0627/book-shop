@@ -68,7 +68,10 @@
 								<a href="order_list.html">我的订单</a>
 							</li>
 							<li>
-								<a href="cart.html"><span class="glyphicon glyphicon-shopping-cart"> </span>我的购物车</a>
+								<a href="cart.html" th:href="@{/cart/list}">
+									<span class="glyphicon glyphicon-shopping-cart"> </span>
+									我的购物车
+								</a>
 							</li>
 						</ul>
 						<div class="input-group col-md-3 pull-right" style="positon:relative;padding: 7px;">
@@ -434,7 +437,7 @@
 						$("#pwdTip").css("display","none");
 						if (data == 100){ // 登录成功，模态窗关闭
 							$("#loginModal").modal('hide');
-							Window.location.href = contextPath + "/book/index"; // 登录成功则跳转到首页
+							Window.location.href = contextPath + "/book/index"; /* 登录成功则跳转到首页*/
 						}else if (data == 101){ // 用户不存在
 							$("#userTip").css("display","block"); // 让它显示出来
 						}else { // 密码输入错误
